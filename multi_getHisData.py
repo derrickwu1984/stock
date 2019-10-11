@@ -6,6 +6,8 @@ from datetime import datetime
 
 import getStockHisData
 
+threadLock = threading.Lock()
+threads = []
 def fill_urls(stock_list):
     urls = []
     print(stock_list)
@@ -17,13 +19,10 @@ def thread_function(i):
     # fill_urls(stock_divid_codes)
     urls = []
     stock_list=stock_divid_codes[0]
-   # for stock_code in range(len(stock_list)):
-        # pass
-        #urls.append("http://q.stock.sohu.com/hisHq?code=cn_" + stock_list[stock_code] + "&start=19900101&end=20191010&stat=1&order=D&period=d&callback=historySearchHandler&rt=json")
-        #print (stock_list[stock_code])
-        #TimeMark = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    #return urls
-    print (stock_list)
+    for stock_code in range(len(stock_list)):
+        urls.append("http://q.stock.sohu.com/hisHq?code=cn_" + stock_list.iloc[stock_code] + "&start=19900101&end=20191010&stat=1&order=D&period=d&callback=historySearchHandler&rt=json")
+    for url in range(len(urls)):
+        print (urls[url])
 
 exitFlag=0
 class myThread(threading.Thread):
@@ -35,7 +34,6 @@ class myThread(threading.Thread):
         self.fileNum=fileNum
     def run (self):
         print ("Starting"+self.name)
-        print ("threading.currentThread()"+str(threading.activeCount()))
         threadLock.acquire()
         print_time(self.name,self.counter,self.fileNum,1)
         threadLock.release()
@@ -48,8 +46,7 @@ def print_time(threadName,counter,fileNum,delay):
         thread_function(fileNum)
         print ("%s: %s" % (threadName, time.ctime(time.time())))
         counter -= 1
-threadLock = threading.Lock()
-threads = []
+
 # 创建新线程
 thread1 = myThread(0,"Thread_0",1,0)
 thread2 = myThread(1,"Thread_1",1,1)
