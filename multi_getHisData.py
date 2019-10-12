@@ -30,27 +30,30 @@ def get_stockHisData(stock_divid_id):
     dt = datetime.now()
     print(process_name,'file'+str(stock_divid_id),'开始时间: ', dt.strftime('%I:%M:%S %p'))
     urls = get_stockCode(stock_divid_id)
-    for url in range(38,len(urls)):
-        store = pd.HDFStore('stock_his_data'+str(stock_divid_id)+'.hdf5', 'a')
-        stock_code = urls[url].split("_")[1].split("&")[0]
-        # get response history stock data
-        response = get_infoFromSohu(urls[url])
-        # json load
-        res_data = json.loads(response)
-        #if the info status return 0 ,means info is usefull,else continue the loop
-        if res_data[0]['status'] == 0:
-            # defind use data length
-            data_len = len(res_data[0]['hq'])
-            print(process_name,'文件'+str(stock_divid_id),url,stock_code, data_len)
-            # loop the data
-            for i in range(data_len):
-                # append the stock code in the end of every list
-                res_data[0]['hq'][i].append(stock_code)
-            df = pd.DataFrame(res_data[0]['hq'])
-            store.append("stock_his_data", df, append=True,format="table")
-        else:
-            continue
-        store.close()
+    for url in range(len(urls)):
+        # if url==37:
+        #     continue
+        # else:
+            store = pd.HDFStore('stock_his_data'+str(stock_divid_id)+'.hdf5', 'a')
+            stock_code = urls[url].split("_")[1].split("&")[0]
+            # get response history stock data
+            response = get_infoFromSohu(urls[url])
+            # json load
+            res_data = json.loads(response)
+            #if the info status return 0 ,means info is usefull,else continue the loop
+            if res_data[0]['status'] == 0:
+                # defind use data length
+                data_len = len(res_data[0]['hq'])
+                print(process_name,'文件'+str(stock_divid_id),url,stock_code, data_len)
+                # loop the data
+                for i in range(data_len):
+                    # append the stock code in the end of every list
+                    res_data[0]['hq'][i].append(stock_code)
+                df = pd.DataFrame(res_data[0]['hq'])
+                store.append("stock_his_data", df, min_itemsize=11,append=True,format="table")
+            else:
+                continue
+            store.close()
     dt = datetime.now()
     endTime = time.time()
     print(process_name+' stock_divid_'+str(stock_divid_id)+' 结束时间: ', dt.strftime('%I:%M:%S %p')," 耗时：",endTime - startTime)
