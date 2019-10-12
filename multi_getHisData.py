@@ -7,12 +7,8 @@ import multiprocessing
 from multiprocessing import Pool
 import getStockHisData
 
-threadLock = threading.Lock()
-threads = []
-
+process_name = multiprocessing.current_process().name
 def thread_function(stock_divid_id):
-    name = multiprocessing.current_process().name
-    print (name,'starting')
     get_stockHisData(stock_divid_id)
 
 def get_infoFromSohu(url):
@@ -44,7 +40,8 @@ def get_stockHisData(stock_divid_id):
         if res_data[0]['status'] == 0:
             # defind use data length
             data_len = len(res_data[0]['hq'])
-            print(url,stock_code, data_len)
+
+            print(process_name,'文件'+str(stock_divid_id),url,stock_code, data_len)
             # loop the data
             for i in range(data_len):
                 # append the stock code in the end of every list
@@ -55,38 +52,17 @@ def get_stockHisData(stock_divid_id):
             continue
         store.close()
     dt = datetime.now()
-    print('结束时间: ', dt.strftime('%I:%M:%S %p'))
-exitFlag=0
-class myThread(threading.Thread):
-    def __init__(self,threadID,name,counter,fileNum):
-        threading.Thread.__init__(self)
-        self.threadID=threadID
-        self.name=name
-        self.counter=counter
-        self.fileNum=fileNum
-    def run (self):
-        print ("Starting"+self.name)
-        # threadLock.acquire()
-        print_time(self.name,self.counter,self.fileNum,1)
-        # threadLock.release()
-        print ("Exiting"+self.name)
-def print_time(threadName,counter,fileNum,delay):
-    while counter:
-        if exitFlag:
-            (threading.Thread).exit()
-        time.sleep(delay)
-        thread_function(fileNum)
-        print ("%s: %s" % (threadName, time.ctime(time.time())))
-        counter -= 1
+    print(process_name+'结束时间: ', dt.strftime('%I:%M:%S %p'))
+
 if __name__ == '__main__' :
     startTime=endTime = time.time()
-    testFL = [3,4,5]
-    pool = Pool(10)
+    testFL = [11,12,13]
+    pool = Pool(3)
     pool.map(thread_function, testFL)
     pool.close()
     pool.join()
     endTime = time.time()
-    print ("time :", endTime - startTime)
+    print (process_name+"time :", endTime - startTime)
  # numList = []
  # for i in range(2):
  #  p = multiprocessing.Process(target=thread_function, args=(i,))
