@@ -26,10 +26,11 @@ def get_stockCode(stock_divid_id):
             stock_code] + "&start=19900101&end="+str(endDate)+"&stat=1&order=D&period=d&callback=historySearchHandler&rt=json")
     return  urls
 def get_stockHisData(stock_divid_id):
+    startTime  = time.time()
     dt = datetime.now()
-    print('开始时间: ', dt.strftime('%I:%M:%S %p'))
+    print(process_name,'file'+str(stock_divid_id),'开始时间: ', dt.strftime('%I:%M:%S %p'))
     urls = get_stockCode(stock_divid_id)
-    for url in range(len(urls)):
+    for url in range(38,len(urls)):
         store = pd.HDFStore('stock_his_data'+str(stock_divid_id)+'.hdf5', 'a')
         stock_code = urls[url].split("_")[1].split("&")[0]
         # get response history stock data
@@ -40,23 +41,23 @@ def get_stockHisData(stock_divid_id):
         if res_data[0]['status'] == 0:
             # defind use data length
             data_len = len(res_data[0]['hq'])
-
             print(process_name,'文件'+str(stock_divid_id),url,stock_code, data_len)
             # loop the data
             for i in range(data_len):
                 # append the stock code in the end of every list
                 res_data[0]['hq'][i].append(stock_code)
             df = pd.DataFrame(res_data[0]['hq'])
-            store.append("stock_his_data", df, append=True, format="table")
+            store.append("stock_his_data", df, append=True,format="table")
         else:
             continue
         store.close()
     dt = datetime.now()
-    print(process_name+'结束时间: ', dt.strftime('%I:%M:%S %p'))
+    endTime = time.time()
+    print(process_name+' stock_divid_'+str(stock_divid_id)+' 结束时间: ', dt.strftime('%I:%M:%S %p')," 耗时：",endTime - startTime)
 
 if __name__ == '__main__' :
     startTime=endTime = time.time()
-    testFL = [11,12,13]
+    testFL = [9]
     pool = Pool(3)
     pool.map(thread_function, testFL)
     pool.close()
