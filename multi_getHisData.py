@@ -3,27 +3,59 @@ import pandas as pd
 import requests,re,csv,os,json,math
 import pandas as pd
 from datetime import datetime
-
+import multiprocessing
+from multiprocessing import Pool
 import getStockHisData
 
 threadLock = threading.Lock()
 threads = []
-def fill_urls(stock_list):
-    urls = []
-    print(stock_list)
-    for stock_code in range(len(stock_list)):
-        urls.append("http://q.stock.sohu.com/hisHq?code=cn_" + stock_list[stock_code] + "&start=19900101&end=20191010&stat=1&order=D&period=d&callback=historySearchHandler&rt=json")
 
-def thread_function(i):
-    stock_divid_codes=pd.read_hdf('stock_divid/stock_divid'+str(i)+'.hdf5')
+def thread_function(stock_divid_id):
+    name = multiprocessing.current_process().name
+    print (name,'starting')
+    get_stockHisData(stock_divid_id)
+
+def get_infoFromSohu(url):
+    r=requests.get(url)
+    return r.text
+
+def get_stockCode(stock_divid_id):
+    stock_divid_codes = pd.read_hdf('stock_divid/stock_divid' + str(stock_divid_id) + '.hdf5')
     # fill_urls(stock_divid_codes)
     urls = []
-    stock_list=stock_divid_codes[0]
+    stock_list = stock_divid_codes[0]
+    endDate=time.strftime("%Y%m%d", time.localtime())
     for stock_code in range(len(stock_list)):
-        urls.append("http://q.stock.sohu.com/hisHq?code=cn_" + stock_list.iloc[stock_code] + "&start=19900101&end=20191010&stat=1&order=D&period=d&callback=historySearchHandler&rt=json")
+        urls.append("http://q.stock.sohu.com/hisHq?code=cn_" + stock_list.iloc[
+            stock_code] + "&start=19900101&end="+str(endDate)+"&stat=1&order=D&period=d&callback=historySearchHandler&rt=json")
+    return  urls
+def get_stockHisData(stock_divid_id):
+    dt = datetime.now()
+    print('开始时间: ', dt.strftime('%I:%M:%S %p'))
+    urls = get_stockCode(stock_divid_id)
     for url in range(len(urls)):
-        print (urls[url])
-
+        store = pd.HDFStore('stock_his_data'+str(stock_divid_id)+'.hdf5', 'a')
+        stock_code = urls[url].split("_")[1].split("&")[0]
+        # get response history stock data
+        response = get_infoFromSohu(urls[url])
+        # json load
+        res_data = json.loads(response)
+        #if the info status return 0 ,means info is usefull,else continue the loop
+        if res_data[0]['status'] == 0:
+            # defind use data length
+            data_len = len(res_data[0]['hq'])
+            print(url,stock_code, data_len)
+            # loop the data
+            for i in range(data_len):
+                # append the stock code in the end of every list
+                res_data[0]['hq'][i].append(stock_code)
+            df = pd.DataFrame(res_data[0]['hq'])
+            store.append("stock_his_data", df, append=True, format="table")
+        else:
+            continue
+        store.close()
+    dt = datetime.now()
+    print('结束时间: ', dt.strftime('%I:%M:%S %p'))
 exitFlag=0
 class myThread(threading.Thread):
     def __init__(self,threadID,name,counter,fileNum):
@@ -34,9 +66,9 @@ class myThread(threading.Thread):
         self.fileNum=fileNum
     def run (self):
         print ("Starting"+self.name)
-        threadLock.acquire()
+        # threadLock.acquire()
         print_time(self.name,self.counter,self.fileNum,1)
-        threadLock.release()
+        # threadLock.release()
         print ("Exiting"+self.name)
 def print_time(threadName,counter,fileNum,delay):
     while counter:
@@ -46,23 +78,19 @@ def print_time(threadName,counter,fileNum,delay):
         thread_function(fileNum)
         print ("%s: %s" % (threadName, time.ctime(time.time())))
         counter -= 1
-
-# 创建新线程
-thread1 = myThread(0,"Thread_0",1,0)
-thread2 = myThread(1,"Thread_1",1,1)
-# thread3 = myThread(2,"Thread_2",1,2)
-
-# 开启新线程
-thread1.start()
-thread2.start()
-# thread3.start()
-
-# 添加线程到线程列表
-threads.append(thread1)
-threads.append(thread2)
-# threads.append(thread3)
-
-# 等待所有线程完成
-for t in threads:
-    t.join()
-print ("Exiting Main Thread")
+if __name__ == '__main__' :
+    startTime=endTime = time.time()
+    testFL = [3,4,5]
+    pool = Pool(10)
+    pool.map(thread_function, testFL)
+    pool.close()
+    pool.join()
+    endTime = time.time()
+    print ("time :", endTime - startTime)
+ # numList = []
+ # for i in range(2):
+ #  p = multiprocessing.Process(target=thread_function, args=(i,))
+ #  numList.append(p)
+ #  p.start()
+ #  p.join()
+ #  print ("Process end.")
