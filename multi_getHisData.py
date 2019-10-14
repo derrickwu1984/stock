@@ -59,14 +59,21 @@ def get_stockHisData(stock_divid_id):
     print(process_name+' stock_divid_'+str(stock_divid_id)+' 结束时间: ', dt.strftime('%I:%M:%S %p')," 耗时：",endTime - startTime)
 
 if __name__ == '__main__' :
-    startTime=endTime = time.time()
-    testFL = [9]
-    pool = Pool(3)
-    pool.map(thread_function, testFL)
-    pool.close()
-    pool.join()
-    endTime = time.time()
-    print (process_name+"time :", endTime - startTime)
+    list = []
+    step = 2
+    for i in range(19):
+        list.append(i)
+    group_num = [list[j:j + step] for j in range(0, len(list), step)]
+    for k in range(len(group_num)):
+        testFL = group_num[k]
+        startTime=endTime = time.time()
+        #testFL = [9]
+        pool = Pool(3)
+        pool.map(thread_function, testFL)
+        pool.close()
+        pool.join()
+        endTime = time.time()
+        print (process_name+"time :", endTime - startTime)
  # numList = []
  # for i in range(2):
  #  p = multiprocessing.Process(target=thread_function, args=(i,))
