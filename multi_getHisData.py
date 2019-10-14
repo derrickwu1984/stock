@@ -3,13 +3,11 @@ import pandas as pd,os
 import requests,re,csv,os,json,math
 import pandas as pd
 from datetime import datetime
+from multiprocessing import Process, JoinableQueue
 import multiprocessing
-from multiprocessing import Pool
-import getStockHisData
 
-process_name = multiprocessing.current_process().name
-def thread_function(stock_divid_id):
-    get_stockHisData(stock_divid_id)
+def thread_function(process_name,stock_divid_id):
+    get_stockHisData(process_name,stock_divid_id)
 
 def get_infoFromSohu(url):
     r=requests.get(url)
@@ -33,7 +31,7 @@ def get_stockCode(stock_divid_id):
         urls.append("http://q.stock.sohu.com/hisHq?code=cn_" + stock_list[0].iloc[
             stock_code] + "&start=19900101&end="+str(endDate)+"&stat=1&order=D&period=d&callback=historySearchHandler&rt=json"+"||"+stock_list[1].iloc[stock_code])
     return  urls
-def get_stockHisData(stock_divid_id):
+def get_stockHisData(process_name,stock_divid_id):
     startTime  = time.time()
     dt = datetime.now()
     print(process_name,'file'+str(stock_divid_id),'开始时间: ', dt.strftime('%I:%M:%S %p'))
@@ -66,22 +64,37 @@ def get_stockHisData(stock_divid_id):
     endTime = time.time()
     print(process_name+' stock_divid_'+str(stock_divid_id)+' 结束时间: ', dt.strftime('%I:%M:%S %p')," 耗时：",endTime - startTime)
 
+def consumer(q, name):
+    while True:
+        fileNum = q.get()
+        thread_function(name,fileNum)
+        q.task_done()  # count - 1
+
+
+def producer(q):
+    for i in range(9,19):
+        q.put(i)
+    q.join()  # 阻塞  直到一个队列中的所有数据 全部被处理完毕
+
 if __name__ == '__main__' :
-    list = []
-    step = 3
-    for i in range(19):
-        list.append(i)
-    group_num = [list[j:j + step] for j in range(0, len(list), step)]
-    for k in range(len(group_num)):
-        testFL = group_num[k]
-        startTime=endTime = time.time()
-        #testFL = [9]
-        pool = Pool(3)
-        pool.map(thread_function, testFL)
-        pool.close()
-        pool.join()
-        endTime = time.time()
-        print (process_name+"time :", endTime - startTime)
+
+    startTime = time.time()
+    process_name = multiprocessing.current_process().name
+    q = JoinableQueue()
+    p1 = Process(target=producer, args=(q,))
+    c1 = Process(target=consumer, args=(q, process_name+"_1"))
+    c2 = Process(target=consumer, args=(q, process_name+"_2"))
+    c3 = Process(target=consumer, args=(q, process_name+"_3"))
+    p1.start()
+    c1.daemon = True  # 设置为守护进程 主进程中的代码执行完毕之后,子进程自动结束
+    c2.daemon = True
+    c3.daemon = True
+    c1.start()
+    c2.start()
+    c3.start()
+    p1.join()
+    endTime = time.time()
+    print ("time :", endTime - startTime)
  # numList = []
  # for i in range(2):
  #  p = multiprocessing.Process(target=thread_function, args=(i,))
