@@ -19,11 +19,12 @@ def get_stockCode(stock_divid_id):
     stock_divid_codes = pd.read_hdf('stock_divid/stock_divid' + str(stock_divid_id) + '.hdf5')
     # fill_urls(stock_divid_codes)
     urls = []
-    stock_list = stock_divid_codes[0]
+    #stock code and name
+    stock_list = stock_divid_codes
     endDate=time.strftime("%Y%m%d", time.localtime())
     for stock_code in range(len(stock_list)):
-        urls.append("http://q.stock.sohu.com/hisHq?code=cn_" + stock_list.iloc[
-            stock_code] + "&start=19900101&end="+str(endDate)+"&stat=1&order=D&period=d&callback=historySearchHandler&rt=json")
+        urls.append("http://q.stock.sohu.com/hisHq?code=cn_" + stock_list[0].iloc[
+            stock_code] + "&start=19900101&end="+str(endDate)+"&stat=1&order=D&period=d&callback=historySearchHandler&rt=json"+"||"+stock_list[1].iloc[stock_code])
     return  urls
 def get_stockHisData(stock_divid_id):
     startTime  = time.time()
@@ -36,6 +37,7 @@ def get_stockHisData(stock_divid_id):
         # else:
             store = pd.HDFStore('stock_his_data'+str(stock_divid_id)+'.hdf5', 'a')
             stock_code = urls[url].split("_")[1].split("&")[0]
+            stock_name = urls[1].split("||")[1]
             # get response history stock data
             response = get_infoFromSohu(urls[url])
             # json load
@@ -49,6 +51,7 @@ def get_stockHisData(stock_divid_id):
                 for i in range(data_len):
                     # append the stock code in the end of every list
                     res_data[0]['hq'][i].append(stock_code)
+                    res_data[0]['hq'][i].append(stock_name)
                 df = pd.DataFrame(res_data[0]['hq'])
                 store.append("stock_his_data", df, min_itemsize=11,append=True,format="table")
             else:
