@@ -1,5 +1,5 @@
 import pandas as pd
-import csv,time,re,os
+import csv,time,re,os,math
 import multiprocessing
 from multiprocessing import Process, JoinableQueue
 
@@ -32,7 +32,7 @@ def writeDataToCsv(name,fileNum):
             csv_write.writerow([group.iloc[i][-2],group.iloc[i][-1],group.iloc[i][0],group.iloc[i][1],group.iloc[i][2],group.iloc[i][3],group.iloc[i][4],group.iloc[i][5],group.iloc[i][6],group.iloc[i][7],group.iloc[i][8],group.iloc[i][9]])
         single_stocke_end_time = time.time()
         stock_file.close()
-        print(single_stocke_end_time - single_stocke_start_time)
+        print(stock_file+' 耗时:'+math.ceil(single_stocke_end_time - single_stocke_start_time)+'秒')
 
 # if __name__ == '__main__' :
 #     # for i in range(19):
