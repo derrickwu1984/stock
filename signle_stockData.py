@@ -1,12 +1,14 @@
 import pandas as pd
 import csv,time,re,os
+import multiprocessing
+from multiprocessing import Process, JoinableQueue
 
 def make_dir(dir_name):
     isExists=os.path.exists(dir_name)
     if not isExists:
        os.makedirs(dir_name)
     else:
-       print ('文件夹已创建')
+       pass
 def judge_block(stock_name):
     if re.findall('^6\d+',stock_name):
         dirName='sh'
@@ -15,9 +17,9 @@ def judge_block(stock_name):
     else:
         dirName='cy'
     return dirName
-def writeDataToCsv(fileNum):
-    df = pd.read_hdf('stockHisData/stock_his_data'+fileNum+'.hdf5')
-    df.columns = ['交易日期', '开盘价 ', '收盘价', '涨跌', '涨幅', '最低价', '最高价', '成交量', '成交额', '换手率', '股票代码']
+def writeDataToCsv(name,fileNum):
+    df = pd.read_hdf('stockHisData/stock_his_data'+str(fileNum)+'.hdf5')
+    df.columns = ['交易日期', '开盘价 ', '收盘价', '涨跌', '涨幅', '最低价', '最高价', '成交量', '成交额', '换手率', '股票代码', '股票名称']
     grouped = df.groupby('股票代码')
     for name, group in grouped:
         single_stocke_start_time = time.time()
@@ -25,13 +27,42 @@ def writeDataToCsv(fileNum):
         make_dir(dirName)
         stock_file = open(dirName + '\stock_' + str(name) + '.csv', 'a', newline='')
         csv_write = csv.writer(stock_file, dialect='excel')
-        csv_write.writerow(['交易日期', '开盘价 ', '收盘价', '涨跌', '涨幅', '最低价', '最高价', '成交量', '成交额', '换手率', '股票代码', '股票名称'])
+        csv_write.writerow(['股票代码', '股票名称','交易日期', '开盘价 ', '收盘价', '涨跌', '涨幅', '最低价', '最高价', '成交量', '成交额', '换手率'])
         for i in range(len(group)):
-            csv_write.writerow(group.iloc[i])
+            csv_write.writerow([group.iloc[i][-2],group.iloc[i][-1],group.iloc[i][0],group.iloc[i][1],group.iloc[i][2],group.iloc[i][3],group.iloc[i][4],group.iloc[i][5],group.iloc[i][6],group.iloc[i][7],group.iloc[i][8],group.iloc[i][9]])
         single_stocke_end_time = time.time()
         stock_file.close()
         print(single_stocke_end_time - single_stocke_start_time)
 
-if __name__ == '__main__' :
+# if __name__ == '__main__' :
+#     # for i in range(19):
+#         writeDataToCsv(str(0))
+def consumer(q, name):
+    while True:
+        fileNum = q.get()
+        writeDataToCsv(name,fileNum)
+        q.task_done()  # count - 1
+
+
+def producer(q):
     for i in range(19):
-        writeDataToCsv(i)
+        q.put(i)
+    q.join()  # 阻塞  直到一个队列中的所有数据 全部被处理完毕
+if __name__ == '__main__' :
+    startTime = time.time()
+    # process_name = multiprocessing.current_process().name
+    q = JoinableQueue()
+    p1 = Process(target=producer, args=(q,))
+    c1 = Process(target=consumer, args=(q, "Process_1"))
+    c2 = Process(target=consumer, args=(q, "Process__2"))
+    c3 = Process(target=consumer, args=(q, "Process__3"))
+    p1.start()
+    c1.daemon = True  # 设置为守护进程 主进程中的代码执行完毕之后,子进程自动结束
+    c2.daemon = True
+    c3.daemon = True
+    c1.start()
+    c2.start()
+    c3.start()
+    p1.join()
+    endTime = time.time()
+    print ("time :", endTime - startTime)

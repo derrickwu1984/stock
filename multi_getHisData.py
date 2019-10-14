@@ -56,7 +56,7 @@ def get_stockHisData(process_name,stock_divid_id):
                     res_data[0]['hq'][i].append(stock_code)
                     res_data[0]['hq'][i].append(stock_name)
                 df = pd.DataFrame(res_data[0]['hq'])
-                store.append("stock_his_data", df, min_itemsize=11,append=True,format="table")
+                store.append("stock_his_data", df, min_itemsize=15,append=True,format="table")
             else:
                 continue
             store.close()
@@ -72,12 +72,11 @@ def consumer(q, name):
 
 
 def producer(q):
-    for i in range(9,19):
+    for i in range(16,19):
         q.put(i)
     q.join()  # 阻塞  直到一个队列中的所有数据 全部被处理完毕
 
 if __name__ == '__main__' :
-
     startTime = time.time()
     process_name = multiprocessing.current_process().name
     q = JoinableQueue()
