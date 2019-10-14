@@ -13,9 +13,9 @@ def judge_block(stock_name):
     if re.findall('^6\d+',stock_name):
         dirName='sh'
     elif re.findall('^3\d+',stock_name):
-        dirName='sz'
-    else:
         dirName='cy'
+    else:
+        dirName='sz'
     return dirName
 def writeDataToCsv(name,fileNum):
     df = pd.read_hdf('stockHisData/stock_his_data'+str(fileNum)+'.hdf5')
