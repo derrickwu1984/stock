@@ -15,8 +15,8 @@ def judge_block(stock_name):
     else:
         dirName='cy'
     return dirName
-def writeDataToCsv():
-    df = pd.read_hdf('stock_his_data1.hdf5')
+def writeDataToCsv(fileNum):
+    df = pd.read_hdf('stockHisData/stock_his_data'+fileNum+'.hdf5')
     df.columns = ['交易日期', '开盘价 ', '收盘价', '涨跌', '涨幅', '最低价', '最高价', '成交量', '成交额', '换手率', '股票代码']
     grouped = df.groupby('股票代码')
     for name, group in grouped:
@@ -25,9 +25,13 @@ def writeDataToCsv():
         make_dir(dirName)
         stock_file = open(dirName + '\stock_' + str(name) + '.csv', 'a', newline='')
         csv_write = csv.writer(stock_file, dialect='excel')
-        csv_write.writerow(['交易日期', '开盘价 ', '收盘价', '涨跌', '涨幅', '最低价', '最高价', '成交量', '成交额', '换手率', '股票代码'])
+        csv_write.writerow(['交易日期', '开盘价 ', '收盘价', '涨跌', '涨幅', '最低价', '最高价', '成交量', '成交额', '换手率', '股票代码', '股票名称'])
         for i in range(len(group)):
             csv_write.writerow(group.iloc[i])
         single_stocke_end_time = time.time()
         stock_file.close()
         print(single_stocke_end_time - single_stocke_start_time)
+
+if __name__ == '__main__' :
+    for i in range(19):
+        writeDataToCsv(i)
