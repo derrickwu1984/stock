@@ -47,18 +47,21 @@ def get_stockHisData(process_name,stock_divid_id):
             response = get_infoFromSohu(url_addr)
             # json load
             res_data = json.loads(response)
-            #if the info status return 0 ,means info is usefull,else continue the loop
-            if res_data[0]['status'] == 0:
-                # defind use data length
-                data_len = len(res_data[0]['hq'])
-                print(process_name,'文件'+str(stock_divid_id),url,stock_code, data_len)
-                # loop the data
-                for i in range(data_len):
-                    # append the stock code in the end of every list
-                    res_data[0]['hq'][i].append(stock_code)
-                    res_data[0]['hq'][i].append(stock_name)
-                df = pd.DataFrame(res_data[0]['hq'])
-                store.append("stock_his_data", df, min_itemsize=12,append=True,format="table")
+            if res_data:
+                #if the info status return 0 ,means info is usefull,else continue the loop
+                if res_data[0]['status'] == 0:
+                    # defind use data length
+                    data_len = len(res_data[0]['hq'])
+                    print(process_name,'文件'+str(stock_divid_id),url,stock_code, data_len)
+                    # loop the data
+                    for i in range(data_len):
+                        # append the stock code in the end of every list
+                        res_data[0]['hq'][i].append(stock_code)
+                        res_data[0]['hq'][i].append(stock_name)
+                    df = pd.DataFrame(res_data[0]['hq'])
+                    store.append("stock_his_data", df, min_itemsize=12,append=True,format="table")
+                else:
+                    continue
             else:
                 continue
             store.close()
@@ -74,7 +77,7 @@ def consumer(q, name):
 
 
 def producer(q):
-    for i in range(1):
+    for i in range(2,19):
         q.put(i)
     q.join()  # 阻塞  直到一个队列中的所有数据 全部被处理完毕
 
