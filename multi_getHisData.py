@@ -2,8 +2,8 @@ import threading,time
 import pandas as pd,os
 import requests,re,csv,os,json,math
 import pandas as pd
-from datetime import datetime
 from multiprocessing import Process, JoinableQueue
+from datetime import datetime, date, timedelta
 import multiprocessing
 
 def thread_function(process_name,stock_divid_id):
@@ -26,10 +26,12 @@ def get_stockCode(stock_divid_id):
     urls = []
     #stock_list[0]: code stock_list[1]: name
     stock_list = stock_divid_codes
+    yesterday = (date.today() + timedelta(days=-1)).strftime("%Y%m%d")
+    today = date.today().strftime("%Y%m%d")
     endDate=time.strftime("%Y%m%d", time.localtime())
     for stock_code in range(len(stock_list)):
         urls.append("http://q.stock.sohu.com/hisHq?code=cn_" + stock_list[0].iloc[
-            stock_code] + "&start=19900101&end="+str(endDate)+"&stat=1&order=D&period=d&callback=historySearchHandler&rt=json"+"||"+stock_list[1].iloc[stock_code])
+            stock_code] + "&start="+str(yesterday)+"&end="+str(today)+"&stat=1&order=D&period=d&callback=historySearchHandler&rt=json"+"||"+stock_list[1].iloc[stock_code])
     return  urls
 def get_stockHisData(process_name,stock_divid_id):
     startTime  = time.time()
@@ -56,7 +58,7 @@ def get_stockHisData(process_name,stock_divid_id):
                     res_data[0]['hq'][i].append(stock_code)
                     res_data[0]['hq'][i].append(stock_name)
                 df = pd.DataFrame(res_data[0]['hq'])
-                store.append("stock_his_data", df, min_itemsize=15,append=True,format="table")
+                store.append("stock_his_data", df, min_itemsize=12,append=True,format="table")
             else:
                 continue
             store.close()
@@ -72,7 +74,7 @@ def consumer(q, name):
 
 
 def producer(q):
-    for i in range(16,19):
+    for i in range(1):
         q.put(i)
     q.join()  # 阻塞  直到一个队列中的所有数据 全部被处理完毕
 
