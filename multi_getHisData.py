@@ -10,8 +10,11 @@ def thread_function(process_name,stock_divid_id):
     get_stockHisData(process_name,stock_divid_id)
 
 def get_infoFromSohu(url):
-    r=requests.get(url)
-    return r.text
+    r = requests.get(url)
+    list_res=[]
+    list_res.append(r.status_code)
+    list_res.append(r.text)
+    return list_res
 
 def make_dir(dir_name):
     isExists=os.path.exists(dir_name)
@@ -45,21 +48,24 @@ def get_stockHisData(process_name,stock_divid_id):
             url_addr=urls[url].split("||")[0]
             # get response history stock data
             response = get_infoFromSohu(url_addr)
-            # json load
-            res_data = json.loads(response)
-            if res_data:
-                #if the info status return 0 ,means info is usefull,else continue the loop
-                if res_data[0]['status'] == 0:
-                    # defind use data length
-                    data_len = len(res_data[0]['hq'])
-                    print(process_name,'文件'+str(stock_divid_id),url,stock_code, data_len)
-                    # loop the data
-                    for i in range(data_len):
-                        # append the stock code in the end of every list
-                        res_data[0]['hq'][i].append(stock_code)
-                        res_data[0]['hq'][i].append(stock_name)
-                    df = pd.DataFrame(res_data[0]['hq'])
-                    store.append("stock_his_data", df, min_itemsize=12,append=True,format="table")
+            if response[0] == 200:
+                # json load
+                res_data = json.loads(response[1])
+                if res_data:
+                    #if the info status return 0 ,means info is usefull,else continue the loop
+                    if res_data[0]['status'] == 0:
+                        # defind use data length
+                        data_len = len(res_data[0]['hq'])
+                        print(process_name,'文件'+str(stock_divid_id),url,stock_code, data_len)
+                        # loop the data
+                        for i in range(data_len):
+                            # append the stock code in the end of every list
+                            res_data[0]['hq'][i].append(stock_code)
+                            res_data[0]['hq'][i].append(stock_name)
+                        df = pd.DataFrame(res_data[0]['hq'])
+                        store.append("stock_his_data", df, min_itemsize=12,append=True,format="table")
+                    else:
+                        continue
                 else:
                     continue
             else:
@@ -77,7 +83,7 @@ def consumer(q, name):
 
 
 def producer(q):
-    for i in range(19):
+    for i in range(7,19):
         q.put(i)
     q.join()  # 阻塞  直到一个队列中的所有数据 全部被处理完毕
 
