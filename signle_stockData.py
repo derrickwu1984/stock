@@ -25,14 +25,16 @@ def writeDataToCsv(name,fileNum):
         single_stocke_start_time = time.time()
         dirName = judge_block(name)
         make_dir(dirName)
-        print (fileNum,name,len(group))
+
         stock_file = open(dirName + '\stock_' + str(name) + '.csv', 'a', newline='')
         csv_write = csv.writer(stock_file, dialect='excel')
         csv_write.writerow(['股票代码', '股票名称','交易日期', '开盘价 ', '收盘价', '涨跌', '涨幅', '最低价', '最高价', '成交量', '成交额', '换手率'])
         for i in range(len(group)):
+            #print('stock_his_data'+str(fileNum),'中第'+str(i)+'条记录', name+'记录总数:'+str(len(group)))
             csv_write.writerow([group.iloc[i][-2],group.iloc[i][-1],group.iloc[i][0],group.iloc[i][1],group.iloc[i][2],group.iloc[i][3],group.iloc[i][4],group.iloc[i][5],group.iloc[i][6],group.iloc[i][7],group.iloc[i][8],group.iloc[i][9]])
         single_stocke_end_time = time.time()
         cost_time=round(single_stocke_end_time - single_stocke_start_time)
+        print('stock_his_data' + str(fileNum), name + '记录总数:' + str(len(group)),'耗时'+str(cost_time)+'秒')
         stock_file.close()
 
 def consumer(q, name):
