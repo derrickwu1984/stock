@@ -2,8 +2,62 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="40e61554-01ec-4654-a7c4-e2b1637ffca8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/multi_getHisData.py" beforeDir="false" afterPath="$PROJECT_DIR$/multi_getHisData.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/signle_stockData.py" beforeDir="false" afterPath="$PROJECT_DIR$/signle_stockData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600000.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600004.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600006.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600007.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600008.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600009.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600010.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600011.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600012.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600015.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600016.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600017.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600018.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600019.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600020.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600021.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600022.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600023.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600252.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600253.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600255.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600256.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600257.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600258.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600259.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600260.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600261.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600262.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600263.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600266.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600267.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600268.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600269.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600270.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600271.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600272.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600518.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600519.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600520.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600521.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600522.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600523.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600525.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600526.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600527.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600528.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600529.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600530.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600531.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600532.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600533.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600535.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600536.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/sh/stock_600537.csv" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,9 +66,10 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/stock$multi_getHisData.coverage" NAME="multi_getHisData Coverage Results" MODIFIED="1571036755350" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/stock$multi_getHisData.coverage" NAME="multi_getHisData Coverage Results" MODIFIED="1571120950039" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/stock$test.coverage" NAME="test Coverage Results" MODIFIED="1571034268564" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/stock$getStockHisData.coverage" NAME="getStockHisData Coverage Results" MODIFIED="1570776285790" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/stock$getStockHisData.coverage" NAME="getStockHisData Coverage Results" MODIFIED="1571113935992" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/stock$update_by_day.coverage" NAME="update_by_day Coverage Results" MODIFIED="1571114443040" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/stock$signle_stockData.coverage" NAME="signle_stockData Coverage Results" MODIFIED="1571037561944" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
@@ -22,25 +77,24 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/getStockHisData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-356">
-              <caret line="3" column="22" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="22" />
+            <state relative-caret-position="162">
+              <caret line="39" column="8" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="20" />
               <folding>
-                <element signature="e#243#660#0" />
-                <element signature="e#689#1772#0" />
+                <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#1493#1968#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/multi_getHisData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="50" />
+            <state relative-caret-position="166">
+              <caret line="33" column="91" selection-start-line="33" selection-start-column="91" selection-end-line="33" selection-end-column="91" />
               <folding>
-                <element signature="e#2876#2978#0" />
-                <element signature="e#3002#3079#0" />
-                <element signature="e#2852#3370#0" />
+                <element signature="e#0#21#0" expanded="true" />
+                <element signature="e#2122#2693#0" />
               </folding>
             </state>
           </provider>
@@ -51,18 +105,28 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
               <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/signle_stockData.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-85">
+              <caret line="23" column="30" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="30" />
               <folding>
-                <element signature="e#315#472#0" />
+                <element signature="e#0#19#0" expanded="true" />
+                <element signature="e#1909#2472#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/signle_stockData.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/update_by_day.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-452">
-              <caret line="20" column="63" selection-start-line="20" selection-start-column="63" selection-end-line="20" selection-end-column="63" />
+            <state relative-caret-position="138">
+              <caret line="22" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="59" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -88,6 +152,8 @@
       <find>sp</find>
       <find>csv</find>
       <find>urls</find>
+      <find>group</find>
+      <find>grouped</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -97,10 +163,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/divid_hdf.py" />
-        <option value="$PROJECT_DIR$/getStockHisData.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/multi_getHisData.py" />
         <option value="$PROJECT_DIR$/signle_stockData.py" />
+        <option value="$PROJECT_DIR$/getStockHisData.py" />
+        <option value="$PROJECT_DIR$/update_by_day.py" />
+        <option value="$PROJECT_DIR$/multi_getHisData.py" />
       </list>
     </option>
   </component>
@@ -116,6 +183,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -127,7 +195,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -154,7 +221,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.signle_stockData">
+  <component name="RunManager" selected="Python.multi_getHisData">
     <configuration name="getStockHisData" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="stock" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -243,12 +310,35 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="update_by_day" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="stock" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/update_by_day.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.signle_stockData" />
         <item itemvalue="Python.multi_getHisData" />
-        <item itemvalue="Python.test" />
+        <item itemvalue="Python.update_by_day" />
         <item itemvalue="Python.getStockHisData" />
+        <item itemvalue="Python.signle_stockData" />
+        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -263,22 +353,24 @@
       <option name="presentableId" value="Default" />
       <updated>1570700592105</updated>
       <workItem from="1570700593555" duration="22969000" />
-      <workItem from="1570841091649" duration="36584000" />
+      <workItem from="1570841091649" duration="46514000" />
+      <workItem from="1571109029918" duration="5837000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63502000" />
+    <option name="totallyTimeSpent" value="79269000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10105093" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10266774" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4995958" visible="true" weight="0.3676732" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4995958" visible="true" weight="0.20248668" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -354,45 +446,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/getStockHisData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-356">
-          <caret line="3" column="22" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="22" />
-          <folding>
-            <element signature="e#243#660#0" />
-            <element signature="e#689#1772#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="22" />
-          <folding>
-            <element signature="e#315#472#0" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/multi_getHisData.py">
+    <entry file="file://$PROJECT_DIR$/getStockHisData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="5" selection-start-line="5" selection-end-line="5" selection-end-column="50" />
+        <state relative-caret-position="162">
+          <caret line="39" column="8" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="20" />
           <folding>
-            <element signature="e#2876#2978#0" />
-            <element signature="e#3002#3079#0" />
-            <element signature="e#2852#3370#0" />
+            <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#1493#1968#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/signle_stockData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-452">
-          <caret line="20" column="63" selection-start-line="20" selection-start-column="63" selection-end-line="20" selection-end-column="63" />
+        <state relative-caret-position="-85">
+          <caret line="23" column="30" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="30" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
+            <element signature="e#1909#2472#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/update_by_day.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="22" column="8" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multi_getHisData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="33" column="91" selection-start-line="33" selection-start-column="91" selection-end-line="33" selection-end-column="91" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#2122#2693#0" />
           </folding>
         </state>
       </provider>

@@ -26,12 +26,12 @@ def get_stockCode(stock_divid_id):
     urls = []
     #stock_list[0]: code stock_list[1]: name
     stock_list = stock_divid_codes
-    yesterday = (date.today() + timedelta(days=-1)).strftime("%Y%m%d")
+    yesterday = (date.today() + timedelta(days=-2)).strftime("%Y%m%d")
     today = date.today().strftime("%Y%m%d")
     endDate=time.strftime("%Y%m%d", time.localtime())
     for stock_code in range(len(stock_list)):
         urls.append("http://q.stock.sohu.com/hisHq?code=cn_" + stock_list[0].iloc[
-            stock_code] + "&start="+str(yesterday)+"&end="+str(today)+"&stat=1&order=D&period=d&callback=historySearchHandler&rt=json"+"||"+stock_list[1].iloc[stock_code])
+            stock_code] + "&start="+str('19900101')+"&end="+str(yesterday)+"&stat=1&order=A&period=d&callback=historySearchHandler&rt=json"+"||"+stock_list[1].iloc[stock_code])
     return  urls
 def get_stockHisData(process_name,stock_divid_id):
     startTime  = time.time()
@@ -77,7 +77,7 @@ def consumer(q, name):
 
 
 def producer(q):
-    for i in range(2,19):
+    for i in range(19):
         q.put(i)
     q.join()  # 阻塞  直到一个队列中的所有数据 全部被处理完毕
 
