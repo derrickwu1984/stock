@@ -12,6 +12,7 @@ def judge_block(stock_name):
         dirName='sz'
     return dirName
 def read_hdf(threadName,fileNum):
+    time.sleep(10)
     df = pd.read_hdf('stockHisData/stock_his_data'+str(fileNum)+'.hdf5',mode='r')
     df.columns = ['交易日期', '开盘价 ', '收盘价', '涨跌', '涨幅', '最低价', '最高价', '成交量', '成交额', '换手率', '股票代码', '股票名称']
     grouped = df.groupby('股票代码')

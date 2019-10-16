@@ -34,41 +34,65 @@ def get_stockCode(stock_divid_id):
     endDate=time.strftime("%Y%m%d", time.localtime())
     for stock_code in range(len(stock_list)):
         urls.append("http://q.stock.sohu.com/hisHq?code=cn_" + stock_list[0].iloc[
-            stock_code] + "&start="+str(yesterday)+"&end="+str(yesterday)+"&stat=1&order=A&period=d&callback=historySearchHandler&rt=json"+"||"+stock_list[1].iloc[stock_code])
+            stock_code] + "&start="+str('19900101')+"&end="+str(yesterday)+"&stat=1&order=A&period=d&callback=historySearchHandler&rt=json"+"||"+stock_list[1].iloc[stock_code])
     return  urls
+
+def judge_block(stock_code):
+    if re.findall('^6\d+',stock_code):
+        dirName='sh'
+    elif re.findall('^3\d+',stock_code):
+        dirName='cy'
+    else:
+        dirName='sz'
+    return dirName
+
 def get_stockHisData(process_name,stock_divid_id):
     startTime  = time.time()
     dt = datetime.now()
     print(process_name,'file'+str(stock_divid_id),'开始时间: ', dt.strftime('%I:%M:%S %p'))
     urls = get_stockCode(stock_divid_id)
+    dir_list=['sh','sz','cy']
+    for dir in range(len(dir_list)):
+        make_dir(dir)
     for url in range(len(urls)):
         stock_code = urls[url].split("_")[1].split("&")[0]
         stock_name = urls[url].split("||")[1]
         url_addr = urls[url].split("||")[0]
+        dirName = judge_block(stock_code)
         # get response history stock data
         response = get_infoFromSohu(url_addr)
-        res_data = json.loads(response[1])
+        try:
+            res_data = json.loads(response[1])
+        except:
+            print (response)
+        # print(res_data[0])
         if response[0] == 200:
-            store = pd.HDFStore('stockHisData/stock_his_data'+str(stock_divid_id)+'.hdf5', 'a')
+            stock_file = open(dirName + '\stock_' + str(stock_code) + '.csv', 'a', newline='')
+            csv_write = csv.writer(stock_file, dialect='excel')
+            csv_write.writerow(['股票代码', '股票名称', '交易日期', '开盘价 ', '收盘价', '涨跌', '涨幅', '最低价', '最高价', '成交量', '成交额', '换手率'])
             if res_data:
-                    #if the info status return 0 ,means info is usefull,else continue the loop
-                    if res_data[0]['status'] == 0:
-                        # defind use data length
-                        data_len = len(res_data[0]['hq'])
-                        print(process_name,'文件'+str(stock_divid_id),url,stock_code, data_len)
-                        # loop the data
-                        for i in range(data_len):
-                            # append the stock code in the end of every list
-                            res_data[0]['hq'][i].append(stock_code)
-                            res_data[0]['hq'][i].append(stock_name)
-                        df = pd.DataFrame(res_data[0]['hq'])
-                        store.append("stock_his_data", df, min_itemsize=12,append=True,format="table")
-                    else:
-                        continue
+                if res_data[0]['status'] == 0:
+                    data_len = len(res_data[0]['hq'])
+                    for i in range(data_len):
+                        res_data[0]['hq'][i].append(stock_code)
+                        res_data[0]['hq'][i].append(stock_name)
+                        csv_write.writerow([res_data[0]['hq'][i][-2], res_data[0]['hq'][i][-1], res_data[0]['hq'][i][0],
+                          res_data[0]['hq'][i][1], res_data[0]['hq'][i][2], res_data[0]['hq'][i][3],
+                          res_data[0]['hq'][i][4], res_data[0]['hq'][i][5], res_data[0]['hq'][i][6],
+                          res_data[0]['hq'][i][7], res_data[0]['hq'][i][8], res_data[0]['hq'][i][9]])
+                        # print([res_data[0]['hq'][i][-2], res_data[0]['hq'][i][-1], res_data[0]['hq'][i][0],
+                        #   res_data[0]['hq'][i][1], res_data[0]['hq'][i][2], res_data[0]['hq'][i][3],
+                        #   res_data[0]['hq'][i][4], res_data[0]['hq'][i][5], res_data[0]['hq'][i][6],
+                        #   res_data[0]['hq'][i][7], res_data[0]['hq'][i][8], res_data[0]['hq'][i][9]])
+                else:
+                    print('%s status!=0 status=%s'%(stock_code,res_data[0]['status']))
+                    continue
             else:
+                print('%s 返回空 status=%s'%(stock_code,res_data))
                 continue
-            store.close()
+            # stock_file.close()
         else:
+            print('%s http status!=200 http status=%s'%(stock_code,response[0]))
             continue
     dt = datetime.now()
     endTime = time.time()

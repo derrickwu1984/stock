@@ -12,11 +12,11 @@ def get_stockCode():
     urls=[]
     stock_his_data=[]
 #     stock_list=stock_codes[0]
-    stock_list = ['603811']
+    stock_list = ['603811','诚意药业']
     for stock_code in range(len(stock_list)):
         # print (stock_list[stock_code])
         urls.append("http://q.stock.sohu.com/hisHq?code=cn_" + stock_list[
-            stock_code] + "&start="+str('19900101')+"&end="+str(yesterday)+"&stat=1&order=A&period=d&callback=historySearchHandler&rt=json")
+            stock_code] + "&start="+str('20191014')+"&end="+str('20191014')+"&stat=1&order=A&period=d&callback=historySearchHandler&rt=json"+"||"+stock_list[1])
     return urls
 
 def get_infoFromSohu(url):
@@ -32,25 +32,28 @@ def get_stockHisData():
     urls = get_stockCode()
 
     for url in range(len(urls)):
+        stock_code = urls[url].split("_")[1].split("&")[0]
+        stock_name = urls[url].split("||")[1]
+        url_addr = urls[url].split("||")[0]
         # get response history stock data
-        response = get_infoFromSohu(urls[url])
+        response = get_infoFromSohu(url_addr)
+        res_data = json.loads(response[1])
         # json load
-        print (response[0])
+        #if the info status return 0 ,means info is usefull,else continue the loop
         if response[0]==200:
-            res_data = json.loads(response[1])
-            #if the info status return 0 ,means info is usefull,else continue the loop
             if res_data:
                 if res_data[0]['status'] == 0:
                     data_len = len(res_data[0]['hq'])
                     for i in range(data_len):
-                        print(res_data[0]['hq'])
-                else:
-                    continue
+                        res_data[0]['hq'][i].append(stock_code)
+                        res_data[0]['hq'][i].append(stock_name)
+                        print(res_data[0]['hq'][i][-2])
+                    else:
+                        continue
             else:
                 continue
         else:
             continue
-        # store.close()
     dt = datetime.now()
     print('结束时间: ', dt.strftime('%I:%M:%S %p'))
 
