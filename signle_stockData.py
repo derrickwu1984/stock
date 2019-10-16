@@ -74,4 +74,9 @@ if __name__ == '__main__' :
     c3.start()
     p1.join()
     endTime = time.time()
-    print ("time :", endTime - startTime)
+    costTime=round(endTime-startTime)
+    if costTime > float(60):
+        costTime = str(costTime / 60)
+        print('耗时:' + costTime + '分')
+    else:
+        print('耗时:' + costTime + '秒')
