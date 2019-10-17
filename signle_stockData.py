@@ -25,7 +25,6 @@ def writeDataToCsv(name,fileNum):
         single_stocke_start_time = time.time()
         dirName = judge_block(name)
         make_dir(dirName)
-
         stock_file = open(dirName + '\stock_' + str(name) + '.csv', 'a', newline='')
         csv_write = csv.writer(stock_file, dialect='excel')
         csv_write.writerow(['股票代码', '股票名称','交易日期', '开盘价 ', '收盘价', '涨跌', '涨幅', '最低价', '最高价', '成交量', '成交额', '换手率'])
