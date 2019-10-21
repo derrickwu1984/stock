@@ -39,7 +39,7 @@ if __name__ == '__main__' :
     else:
         logging.info ('昨天日期为:%s 是工作日' %today)
         #2、先备份昨天的记录
-        # utils.controller()
+        utils.controller()
         startTime = time.time()
         thread_producer=threading.Thread(target=producer, args=(producer_q,))
         thread_producer.start()
