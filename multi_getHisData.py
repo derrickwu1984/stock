@@ -9,6 +9,7 @@ import multiprocessing
 def thread_function(process_name,startDate,endDate,stock_divid_id):
     #get_stockHisData(process_name,startDate,endDate,stock_divid_id)
     update_dataEveryDate(process_name,startDate,endDate,stock_divid_id)
+    # print (process_name, startDate, endDate, stock_divid_id)
 
 def get_infoFromSohu(url):
     r = requests.get(url)
