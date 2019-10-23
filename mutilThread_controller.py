@@ -34,10 +34,10 @@ def producer(producer_q):
 if __name__ == '__main__' :
     #1、判断是否为节假日，只有在工作日才跑数
     if not check_holiday(yesterday):
-        logging.info('昨天日期为:%s 是工作日' % today)
+        logging.info('昨天日期为:%s 是工作日' % yesterday)
         os._exit(0)
     else:
-        logging.info ('昨天日期为:%s 是工作日' %today)
+        logging.info ('昨天日期为:%s 是工作日' %yesterday)
         #2、先备份昨天的记录
         utils.controller()
         startTime = time.time()

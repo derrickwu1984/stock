@@ -46,10 +46,10 @@ def check_holiday(check_date):
         res_data = json.loads(r[1])
         data_status=res_data['data']
         if data_status==0:
-            logging.info ('今天日期为:%s 是工作日' %check_date)
+            # logging.info ('昨天日期为:%s 是工作日' %check_date)
             return True
         else:
-            logging.info ('今天日期为:%s 是非工作日' %check_date)
+            # logging.info ('昨天日期为:%s 是非工作日' %check_date)
             return  False
             os._exit(0)
     else:
